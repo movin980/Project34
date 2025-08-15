@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Customer Churn Predictor</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <h1>📊 AI Customer Churn Predictor</h1>
+  </header>
+
+  <!-- Auth Section -->
+  <section id="authSection">
+    <h2>Login or Sign Up</h2>
+    <input type="email" id="email" placeholder="Email" required />
+    <input type="password" id="password" placeholder="Password" required />
+    <div class="auth-buttons">
+      <button id="loginBtn">Login</button>
+      <button id="signupBtn">Sign Up</button>
+    </div>
+    <p id="authMessage"></p>
+  </section>
+
+  <!-- Dashboard -->
+  <section id="dashboard" style="display:none;">
+    <button id="logoutBtn" class="logout">Logout</button>
+    <h2>Welcome, <span id="userEmail"></span></h2>
+
+    <!-- File Upload -->
+    <div class="upload-section">
+      <h3>Upload Customer Data (CSV)</h3>
+      <input type="file" id="csvFile" accept=".csv" />
+      <button id="predictBtn">Predict Churn</button>
+    </div>
+
+    <!-- Prediction Results -->
+    <div id="resultsSection">
+      <h3>Prediction Results</h3>
+      <table id="resultsTable">
+        <thead>
+          <tr>
+            <th>Customer</th>
+            <th>Predicted Churn Probability</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <!-- Charts -->
+    <div class="charts">
+      <canvas id="churnChart"></canvas>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
