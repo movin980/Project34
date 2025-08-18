@@ -7,35 +7,48 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>AI Customer Churn Predictor</h1>
+  <div class="container">
+    <h1>AI Customer Churn Predictor</h1>
 
-  <!-- Customer Input Form -->
-  <form id="customerForm">
-    <input type="text" id="name" placeholder="Customer Name" required>
-    <input type="email" id="email" placeholder="Customer Email" required>
-    <input type="date" id="last_purchase_date" required>
-    <input type="number" id="total_spent" placeholder="Total Spent (KES)" required>
-    <input type="number" id="visits" placeholder="Number of Visits" required>
-    <button type="submit">Add Customer</button>
-  </form>
+    <form id="customerForm" class="card">
+      <h2>Add New Customer</h2>
+      
+      <label for="name">Full Name</label>
+      <input type="text" id="name" placeholder="Enter customer name" required>
+      
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="Enter email" required>
+      
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" placeholder="Enter phone" required>
+      
+      <label for="lastPurchase">Last Purchase (days ago)</label>
+      <input type="number" id="lastPurchase" placeholder="e.g., 30" required>
+      
+      <label for="totalSpent">Total Amount Spent</label>
+      <input type="number" id="totalSpent" placeholder="KES 5000" required>
+      
+      <button type="submit">Add Customer</button>
+    </form>
 
-  <!-- Customer List -->
-  <h2>Customer Records</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Last Purchase</th>
-        <th>Total Spent</th>
-        <th>Visits</th>
-        <th>Churn Risk</th>
-      </tr>
-    </thead>
-    <tbody id="customerList"></tbody>
-  </table>
+    <div class="card">
+      <h2>Customer List</h2>
+      <table id="customerList">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Last Purchase</th>
+            <th>Total Spent</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
 
   <script type="module" src="firebase-config.js"></script>
-  <script type="module" src="script.js"></script>
+  <script type="module" src="app.js"></script>
 </body>
 </html>
