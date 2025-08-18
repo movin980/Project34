@@ -1,119 +1,56 @@
-/* General Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
+import { db } from "./firebase-config.js";
+import { collection, addDoc, getDocs } from "firebase/firestore";
 
-body {
-  background: #f5f7fa;
-  color: #333;
-  padding: 20px;
-}
+const customerForm = document.getElementById("customerForm");
+const customerList = document.getElementById("customerList");
 
-header {
-  text-align: center;
-  padding: 15px 0;
-  background: #4a90e2;
-  color: #fff;
-  border-radius: 8px;
-  margin-bottom: 20px;
-}
+// Add Customer to Firestore
+customerForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
 
-h1 {
-  font-size: 1.6rem;
-}
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const last_purchase_date = document.getElementById("last_purchase_date").value;
+  const total_spent = Number(document.getElementById("total_spent").value);
+  const visits = Number(document.getElementById("visits").value);
 
-section {
-  background: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
-  max-width: 500px;
-  margin: auto;
-}
+  try {
+    await addDoc(collection(db, "customers"), {
+      name,
+      email,
+      last_purchase_date,
+      total_spent,
+      visits,
+      churn_risk: "Unknown" // later AI will update this
+    });
 
-input {
-  width: 100%;
-  padding: 10px;
-  margin: 8px 0;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 1rem;
-}
-
-button {
-  background: #4a90e2;
-  color: #fff;
-  border: none;
-  padding: 10px 15px;
-  margin: 5px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-button:hover {
-  background: #357abd;
-}
-
-.auth-buttons {
-  display: flex;
-  justify-content: space-between;
-}
-
-.logout {
-  background: #e94e4e;
-  float: right;
-}
-
-.upload-section {
-  text-align: center;
-  margin-top: 20px;
-}
-
-#resultsTable {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 15px;
-}
-
-#resultsTable th, #resultsTable td {
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: center;
-}
-
-#resultsTable th {
-  background: #4a90e2;
-  color: white;
-}
-
-.charts {
-  margin-top: 25px;
-}
-
-/* Mobile View */
-@media screen and (max-width: 600px) {
-  body {
-    padding: 10px;
+    alert("✅ Customer added successfully!");
+    customerForm.reset();
+    loadCustomers();
+  } catch (error) {
+    console.error("Error adding customer:", error);
   }
+});
 
-  header h1 {
-    font-size: 1.2rem;
-  }
+// Load Customers
+async function loadCustomers() {
+  customerList.innerHTML = "";
+  const querySnapshot = await getDocs(collection(db, "customers"));
 
-  section {
-    padding: 15px;
-  }
-
-  button {
-    width: 100%;
-    margin-top: 10px;
-  }
-
-  .auth-buttons {
-    flex-direction: column;
-  }
+  querySnapshot.forEach((doc) => {
+    const customer = doc.data();
+    customerList.innerHTML += `
+      <tr>
+        <td>${customer.name}</td>
+        <td>${customer.email}</td>
+        <td>${customer.last_purchase_date}</td>
+        <td>${customer.total_spent}</td>
+        <td>${customer.visits}</td>
+        <td>${customer.churn_risk}</td>
+      </tr>
+    `;
+  });
 }
+
+// Load customers on page load
+loadCustomers();
