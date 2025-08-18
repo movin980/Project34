@@ -1,65 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI Customer Churn Predictor</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <h1>AI Customer Churn Predictor</h1>
 
-  <header>
-    <h1>📊 AI Customer Churn Predictor</h1>
-  </header>
+  <!-- Customer Input Form -->
+  <form id="customerForm">
+    <input type="text" id="name" placeholder="Customer Name" required>
+    <input type="email" id="email" placeholder="Customer Email" required>
+    <input type="date" id="last_purchase_date" required>
+    <input type="number" id="total_spent" placeholder="Total Spent (KES)" required>
+    <input type="number" id="visits" placeholder="Number of Visits" required>
+    <button type="submit">Add Customer</button>
+  </form>
 
-  <!-- Auth Section -->
-  <section id="authSection">
-    <h2>Login or Sign Up</h2>
-    <input type="email" id="email" placeholder="Email" required />
-    <input type="password" id="password" placeholder="Password" required />
-    <div class="auth-buttons">
-      <button id="loginBtn">Login</button>
-      <button id="signupBtn">Sign Up</button>
-    </div>
-    <p id="authMessage"></p>
-  </section>
+  <!-- Customer List -->
+  <h2>Customer Records</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Last Purchase</th>
+        <th>Total Spent</th>
+        <th>Visits</th>
+        <th>Churn Risk</th>
+      </tr>
+    </thead>
+    <tbody id="customerList"></tbody>
+  </table>
 
-  <!-- Dashboard -->
-  <section id="dashboard" style="display:none;">
-    <button id="logoutBtn" class="logout">Logout</button>
-    <h2>Welcome, <span id="userEmail"></span></h2>
-
-    <!-- File Upload -->
-    <div class="upload-section">
-      <h3>Upload Customer Data (CSV)</h3>
-      <input type="file" id="csvFile" accept=".csv" />
-      <button id="predictBtn">Predict Churn</button>
-    </div>
-
-    <!-- Prediction Results -->
-    <div id="resultsSection">
-      <h3>Prediction Results</h3>
-      <table id="resultsTable">
-        <thead>
-          <tr>
-            <th>Customer</th>
-            <th>Predicted Churn Probability</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
-
-    <!-- Charts -->
-    <div class="charts">
-      <canvas id="churnChart"></canvas>
-    </div>
-  </section>
-
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"></script>
-  <script src="firebase-config.js"></script>
-  <script src="app.js"></script>
+  <script type="module" src="firebase-config.js"></script>
+  <script type="module" src="script.js"></script>
 </body>
 </html>
